@@ -1,0 +1,348 @@
+# Improvement Roadmap Schema
+# Standard schema for improvement roadmaps across legal-compliance cluster
+
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "Improvement Roadmap"
+description: "Standardized improvement roadmap for legal-compliance cluster skills"
+type: object
+required:
+  - schema_version
+  - timestamp
+  - cluster_id
+  - categories
+  - execution_plan
+properties:
+  schema_version:
+    type: string
+    description: "Schema version identifier"
+    example: "1.0.0"
+
+  timestamp:
+    type: string
+    format: "date-time"
+    description: "ISO 8601 timestamp of roadmap generation"
+
+  cluster_id:
+    type: string
+    description: "Cluster identifier"
+    const: "legal-compliance"
+
+  component_id:
+    type: string
+    description: "Component that generated the roadmap"
+    example: "shared-improvement-roadmap"
+
+  assessment_source:
+    type: string
+    description: "Skill or assessment that generated the weaknesses"
+    example: "digital-forensics-process-support"
+
+  total_recommendations:
+    type: integer
+    description: "Total number of recommendations across all categories"
+
+  categories:
+    type: object
+    description: "Improvement items organized by category"
+    required:
+      - quick_wins
+      - major_projects
+      - long_term
+    properties:
+      quick_wins:
+        type: array
+        description: "Items that can be implemented quickly (days to 2 weeks)"
+        items:
+          $ref: "#/definitions/roadmap_item"
+
+      major_projects:
+        type: array
+        description: "Projects requiring moderate effort (2-8 weeks)"
+        items:
+          $ref: "#/definitions/roadmap_item"
+
+      long_term:
+        type: array
+        description: "Long-term initiatives (2+ months)"
+        items:
+          $ref: "#/definitions/roadmap_item"
+
+  execution_plan:
+    type: object
+    description: "Phased execution plan"
+    properties:
+      phase_1:
+        $ref: "#/definitions/execution_phase"
+      phase_2:
+        $ref: "#/definitions/execution_phase"
+      phase_3:
+        $ref: "#/definitions/execution_phase"
+
+  resource_estimates:
+    type: object
+    description: "Overall resource estimates for the roadmap"
+    properties:
+      total_items:
+        type: integer
+        description: "Total number of items"
+      quick_wins_count:
+        type: integer
+      major_projects_count:
+        type: integer
+      long_term_count:
+        type: integer
+      estimated_total_duration:
+        type: string
+        description: "Estimated total duration for all items"
+        example: "3-6 months"
+      estimated_effort_hours:
+        type: number
+        description: "Estimated total effort in hours"
+
+  priority_matrix:
+    type: object
+    description: "Priority matrix showing effort vs impact for all items"
+    properties:
+      quick_wins:
+        type: array
+        description: "Low effort, high impact items"
+        items:
+          type: string
+          description: "Item IDs"
+      fill_ins:
+        type: array
+        description: "Low effort, low impact items"
+        items:
+          type: string
+      major_projects:
+        type: array
+        description: "High effort, high impact items"
+        items:
+          type: string
+      thankless_tasks:
+        type: array
+        description: "High effort, low impact items"
+        items:
+          type: string
+
+  metadata:
+    type: object
+    description: "Additional metadata about the roadmap"
+    properties:
+      input_hash:
+        type: string
+        description: "Hash of input weaknesses for verification"
+      execution_time_ms:
+        type: number
+        description: "Execution time in milliseconds"
+      generator_version:
+        type: string
+        description: "Version of the roadmap generator"
+      constraints_applied:
+        type: array
+        items:
+          type: string
+        description: "User constraints applied to prioritization"
+
+definitions:
+  roadmap_item:
+    type: object
+    required:
+      - id
+      - title
+      - effort_level
+      - impact_level
+      - success_metric
+    properties:
+      id:
+        type: string
+        description: "Unique identifier for the item"
+        example: "RW-001"
+
+      title:
+        type: string
+        description: "Item title"
+        example: "Implement write-blocking for all acquisitions"
+
+      description:
+        type: string
+        description: "Detailed description of the item"
+
+      category:
+        type: string
+        enum: ["quick_win", "major_project", "long_term"]
+        description: "Category classification"
+
+      effort_level:
+        type: string
+        enum: ["low", "medium", "high"]
+        description: "Effort required to implement"
+
+      effort_hours:
+        type: number
+        description: "Estimated effort in hours"
+
+      impact_level:
+        type: string
+        enum: ["low", "medium", "high", "critical"]
+        description: "Expected impact of implementation"
+
+      impact_score:
+        type: number
+        description: "Quantified impact score (0-100)"
+        minimum: 0
+        maximum: 100
+
+      estimated_duration:
+        type: string
+        description: "Estimated time to complete"
+        example: "1-2 weeks"
+
+      success_metric:
+        type: string
+        description: "Measurable success criteria"
+        example: "100% of acquisitions use verified write-blockers"
+
+      success_threshold:
+        type: object
+        description: "Thresholds for measuring success"
+        properties:
+          target:
+            type: number
+          current:
+            type: number
+          unit:
+            type: string
+
+      dependencies:
+        type: array
+        description: "Item IDs that must be completed first"
+        items:
+          type: string
+
+      enables:
+        type: array
+        description: "Item IDs that this item enables"
+        items:
+          type: string
+
+      resources_required:
+        type: array
+        description: "Resources needed for implementation"
+        items:
+          type: object
+          properties:
+            type:
+              type: string
+              enum: ["personnel", "budget", "tools", "training", "time"]
+            description:
+              type: string
+            quantity:
+              type: string
+
+      priority_rank:
+        type: integer
+        description: "Overall priority ranking (1=highest)"
+        minimum: 1
+
+      roi_score:
+        type: number
+        description: "Return on investment score (impact/effort ratio)"
+        minimum: 0
+
+      risk_level:
+        type: string
+        enum: ["low", "medium", "high"]
+        description: "Risk level associated with implementation"
+
+      source_dimension:
+        type: string
+        description: "Dimension or area that generated this item"
+        example: "Acquisition soundness"
+
+      framework_reference:
+        type: string
+        description: "Framework or standard reference"
+        example: "ISO/IEC 27037 §6.2"
+
+  execution_phase:
+    type: object
+    required:
+      - name
+      - duration
+      - items
+    properties:
+      name:
+        type: string
+        description: "Phase name"
+        example: "Foundation"
+
+      duration:
+        type: string
+        description: "Estimated duration"
+        example: "4-6 weeks"
+
+      objectives:
+        type: array
+        description: "Phase objectives"
+        items:
+          type: string
+
+      items:
+        type: array
+        description: "Item IDs in this phase"
+        items:
+          type: string
+
+      expected_outcomes:
+        type: array
+        description: "Expected outcomes after phase completion"
+        items:
+          type: string
+
+      success_criteria:
+        type: array
+        description: "Criteria for considering phase complete"
+        items:
+          type: string
+
+examples:
+  - schema_version: "1.0.0"
+    timestamp: "2026-06-23T12:00:00Z"
+    cluster_id: "legal-compliance"
+    component_id: "shared-improvement-roadmap"
+    assessment_source: "digital-forensics-process-support"
+    total_recommendations: 8
+    categories:
+      quick_wins:
+        - id: "RW-001"
+          title: "Implement write-blocking"
+          effort_level: "low"
+          impact_level: "high"
+          success_metric: "100% of acquisitions use write-blockers"
+          priority_rank: 1
+      major_projects:
+        - id: "MP-001"
+          title: "Deploy validated imaging tools"
+          effort_level: "medium"
+          impact_level: "high"
+          success_metric: "All tools NIST CFTT validated"
+          priority_rank: 2
+      long_term:
+        - id: "LT-001"
+          title: "Establish tool certification program"
+          effort_level: "high"
+          impact_level: "critical"
+          success_metric: "Certified tool inventory maintained"
+          priority_rank: 3
+    execution_plan:
+      phase_1:
+        name: "Quick Wins"
+        duration: "2-4 weeks"
+        items: ["RW-001", "RW-002"]
+    resource_estimates:
+      total_items: 8
+      quick_wins_count: 3
+      major_projects_count: 4
+      long_term_count: 1
+      estimated_total_duration: "3-4 months"

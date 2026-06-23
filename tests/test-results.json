@@ -1,0 +1,327 @@
+{
+  "summary": {
+    "start_time": "2026-06-23T20:16:28.108196",
+    "end_time": "2026-06-23T20:16:28.109197",
+    "duration_seconds": 0.001001,
+    "success_rate": 100.0,
+    "total_scenarios": 8,
+    "passed": 8,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "scenarios": [
+    {
+      "id": 1,
+      "name": "Disk image acquisition",
+      "status": "PASS",
+      "execution_time": 0.0,
+      "gate_results": [
+        {
+          "gate": "Dimension Evidence Check",
+          "status": "PASS",
+          "description": "All dimensions have explicit evidence",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Framework Citation Check",
+          "status": "PASS",
+          "description": "Framework(s) cited in output",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Roadmap Measurability Check",
+          "status": "PASS",
+          "description": "All roadmap items are measurable",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Compliance Disclaimers Check",
+          "status": "PASS",
+          "description": "Compliance disclaimers attached",
+          "failure_reason": ""
+        },
+        {
+          "gate": "No Silent Assumptions Check",
+          "status": "PASS",
+          "description": "No silent assumptions detected",
+          "failure_reason": ""
+        }
+      ],
+      "error_message": ""
+    },
+    {
+      "id": 2,
+      "name": "Chain-of-custody gap",
+      "status": "PASS",
+      "execution_time": 0.0,
+      "gate_results": [
+        {
+          "gate": "Dimension Evidence Check",
+          "status": "PASS",
+          "description": "All dimensions have explicit evidence",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Framework Citation Check",
+          "status": "PASS",
+          "description": "Framework(s) cited in output",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Roadmap Measurability Check",
+          "status": "PASS",
+          "description": "All roadmap items are measurable",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Compliance Disclaimers Check",
+          "status": "PASS",
+          "description": "Compliance disclaimers attached",
+          "failure_reason": ""
+        },
+        {
+          "gate": "No Silent Assumptions Check",
+          "status": "PASS",
+          "description": "No silent assumptions detected",
+          "failure_reason": ""
+        }
+      ],
+      "error_message": ""
+    },
+    {
+      "id": 3,
+      "name": "Hash verification",
+      "status": "PASS",
+      "execution_time": 0.0,
+      "gate_results": [
+        {
+          "gate": "Dimension Evidence Check",
+          "status": "PASS",
+          "description": "All dimensions have explicit evidence",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Framework Citation Check",
+          "status": "PASS",
+          "description": "Framework(s) cited in output",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Roadmap Measurability Check",
+          "status": "PASS",
+          "description": "All roadmap items are measurable",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Compliance Disclaimers Check",
+          "status": "PASS",
+          "description": "Compliance disclaimers attached",
+          "failure_reason": ""
+        },
+        {
+          "gate": "No Silent Assumptions Check",
+          "status": "PASS",
+          "description": "No silent assumptions detected",
+          "failure_reason": ""
+        }
+      ],
+      "error_message": ""
+    },
+    {
+      "id": 4,
+      "name": "Cloud evidence",
+      "status": "PASS",
+      "execution_time": 0.0,
+      "gate_results": [
+        {
+          "gate": "Dimension Evidence Check",
+          "status": "PASS",
+          "description": "All dimensions have explicit evidence",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Framework Citation Check",
+          "status": "PASS",
+          "description": "Framework(s) cited in output",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Roadmap Measurability Check",
+          "status": "PASS",
+          "description": "All roadmap items are measurable",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Compliance Disclaimers Check",
+          "status": "PASS",
+          "description": "Compliance disclaimers attached",
+          "failure_reason": ""
+        },
+        {
+          "gate": "No Silent Assumptions Check",
+          "status": "PASS",
+          "description": "No silent assumptions detected",
+          "failure_reason": ""
+        }
+      ],
+      "error_message": ""
+    },
+    {
+      "id": 5,
+      "name": "Tool validation",
+      "status": "PASS",
+      "execution_time": 0.0,
+      "gate_results": [
+        {
+          "gate": "Dimension Evidence Check",
+          "status": "PASS",
+          "description": "All dimensions have explicit evidence",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Framework Citation Check",
+          "status": "PASS",
+          "description": "Framework(s) cited in output",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Roadmap Measurability Check",
+          "status": "PASS",
+          "description": "All roadmap items are measurable",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Compliance Disclaimers Check",
+          "status": "PASS",
+          "description": "Compliance disclaimers attached",
+          "failure_reason": ""
+        },
+        {
+          "gate": "No Silent Assumptions Check",
+          "status": "PASS",
+          "description": "No silent assumptions detected",
+          "failure_reason": ""
+        }
+      ],
+      "error_message": ""
+    },
+    {
+      "id": 6,
+      "name": "Incomplete input (edge case)",
+      "status": "PASS",
+      "execution_time": 0.0,
+      "gate_results": [
+        {
+          "gate": "Dimension Evidence Check",
+          "status": "PASS",
+          "description": "All dimensions have explicit evidence",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Framework Citation Check",
+          "status": "PASS",
+          "description": "Framework(s) cited in output",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Roadmap Measurability Check",
+          "status": "PASS",
+          "description": "All roadmap items are measurable",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Compliance Disclaimers Check",
+          "status": "PASS",
+          "description": "Compliance disclaimers attached",
+          "failure_reason": ""
+        },
+        {
+          "gate": "No Silent Assumptions Check",
+          "status": "PASS",
+          "description": "2 unknowns explicitly flagged",
+          "failure_reason": ""
+        }
+      ],
+      "error_message": ""
+    },
+    {
+      "id": 7,
+      "name": "Offline / sources unavailable (graceful degradation)",
+      "status": "PASS",
+      "execution_time": 0.0,
+      "gate_results": [
+        {
+          "gate": "Dimension Evidence Check",
+          "status": "PASS",
+          "description": "All dimensions have explicit evidence",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Framework Citation Check",
+          "status": "PASS",
+          "description": "Framework(s) cited in output",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Roadmap Measurability Check",
+          "status": "PASS",
+          "description": "All roadmap items are measurable",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Compliance Disclaimers Check",
+          "status": "PASS",
+          "description": "Compliance disclaimers attached",
+          "failure_reason": ""
+        },
+        {
+          "gate": "No Silent Assumptions Check",
+          "status": "PASS",
+          "description": "No silent assumptions detected",
+          "failure_reason": ""
+        }
+      ],
+      "error_message": ""
+    },
+    {
+      "id": 8,
+      "name": "Compliance boundary",
+      "status": "PASS",
+      "execution_time": 0.0,
+      "gate_results": [
+        {
+          "gate": "Dimension Evidence Check",
+          "status": "PASS",
+          "description": "All dimensions have explicit evidence",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Framework Citation Check",
+          "status": "PASS",
+          "description": "Framework(s) cited in output",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Roadmap Measurability Check",
+          "status": "PASS",
+          "description": "All roadmap items are measurable",
+          "failure_reason": ""
+        },
+        {
+          "gate": "Compliance Disclaimers Check",
+          "status": "PASS",
+          "description": "Compliance disclaimers attached",
+          "failure_reason": ""
+        },
+        {
+          "gate": "No Silent Assumptions Check",
+          "status": "PASS",
+          "description": "No silent assumptions detected",
+          "failure_reason": ""
+        }
+      ],
+      "error_message": ""
+    }
+  ]
+}

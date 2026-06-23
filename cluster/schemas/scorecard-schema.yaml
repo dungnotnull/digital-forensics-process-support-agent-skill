@@ -1,0 +1,274 @@
+# Scorecard Schema
+# Standard schema for scoring results across legal-compliance cluster
+
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "Scorecard"
+description: "Standardized scoring result for legal-compliance cluster skills"
+type: object
+required:
+  - schema_version
+  - timestamp
+  - cluster_id
+  - framework
+  - overall_score
+  - score_band
+  - dimensions
+properties:
+  schema_version:
+    type: string
+    description: "Schema version identifier"
+    example: "1.0.0"
+
+  timestamp:
+    type: string
+    format: "date-time"
+    description: "ISO 8601 timestamp of scoring"
+
+  cluster_id:
+    type: string
+    description: "Cluster identifier"
+    const: "legal-compliance"
+
+  component_id:
+    type: string
+    description: "Component that performed the scoring"
+    example: "shared-scoring-engine"
+
+  framework:
+    type: object
+    description: "Framework information used for scoring"
+    required:
+      - name
+      - version
+    properties:
+      name:
+        type: string
+        description: "Framework name"
+        example: "ISO/IEC 27037"
+      version:
+        type: string
+        description: "Framework version or year"
+        example: "2012"
+      description:
+        type: string
+        description: "Framework description"
+      url:
+        type: string
+        format: "uri"
+        description: "Framework URL or reference"
+
+  overall_score:
+    type: number
+    description: "Overall numeric score (0-100)"
+    minimum: 0
+    maximum: 100
+
+  score_band:
+    type: string
+    enum: ["excellent", "good", "fair", "poor"]
+    description: "Score band classification"
+
+  confidence_level:
+    type: string
+    enum: ["high", "medium", "low"]
+    description: "Confidence level in the scoring"
+
+  dimensions:
+    type: array
+    description: "Individual dimension scores"
+    items:
+      type: object
+      required:
+        - name
+        - score
+        - max_score
+        - evidence
+      properties:
+        name:
+          type: string
+          description: "Dimension name"
+          example: "Acquisition soundness"
+        score:
+          type: number
+          description: "Dimension score"
+          minimum: 0
+        max_score:
+          type: number
+          description: "Maximum possible score for this dimension"
+        weight:
+          type: number
+          description: "Weight in overall calculation (0-1)"
+          minimum: 0
+          maximum: 1
+        percentage:
+          type: number
+          description: "Score as percentage"
+          minimum: 0
+          maximum: 100
+
+        evidence:
+          type: array
+          description: "Supporting evidence for the score"
+          items:
+            type: object
+            required:
+              - source
+              - text
+            properties:
+              source:
+                type: string
+                description: "Framework or document reference"
+                example: "ISO/IEC 27037 §6.2"
+              text:
+                type: string
+                description: "Evidence text"
+              type:
+                type: string
+                enum: ["systematic_review", "meta_analysis", "rct_benchmark", "case_study", "expert_opinion", "article"]
+                description: "Evidence hierarchy type"
+              url:
+                type: string
+                format: "uri"
+                description: "Source URL if applicable"
+
+        strengths:
+          type: array
+          description: "Identified strengths in this dimension"
+          items:
+            type: string
+
+        weaknesses:
+          type: array
+          description: "Identified weaknesses in this dimension"
+          items:
+            type: string
+
+        gaps:
+          type: array
+          description: "Specific gaps identified"
+          items:
+            type: object
+            properties:
+              description:
+                type: string
+              severity:
+                type: string
+                enum: ["critical", "high", "medium", "low"]
+              framework_reference:
+                type: string
+
+  overall_assessment:
+    type: object
+    description: "Overall assessment summary"
+    properties:
+      top_strengths:
+        type: array
+        description: "Top 3 strengths across all dimensions"
+        items:
+          type: object
+          properties:
+            dimension:
+              type: string
+            description:
+              type: string
+            impact:
+              type: string
+              enum: ["critical", "high", "medium", "low"]
+
+      critical_weaknesses:
+        type: array
+        description: "Critical weaknesses requiring attention"
+        items:
+          type: object
+          properties:
+            dimension:
+              type: string
+            description:
+              type: string
+            severity:
+              type: string
+              enum: ["critical", "high", "medium", "low"]
+            priority:
+              type: integer
+              minimum: 1
+              maximum: 10
+
+      priority_improvements:
+        type: array
+        description: "Priority areas for improvement"
+        items:
+          type: object
+          properties:
+            area:
+              type: string
+            current_score:
+              type: number
+            potential_score:
+              type: number
+            effort:
+              type: string
+              enum: ["low", "medium", "high"]
+            impact:
+              type: string
+              enum: ["low", "medium", "high", "critical"]
+
+  scoring_methodology:
+    type: object
+    description: "Information about how scoring was performed"
+    properties:
+      method:
+        type: string
+        enum: ["evidence_based", "framework_based", "hybrid"]
+        description: "Scoring method used"
+      rubric_version:
+        type: string
+        description: "Version of rubric applied"
+      assessor_notes:
+        type: array
+        items:
+          type: string
+        description: "Additional notes about the scoring"
+
+  metadata:
+    type: object
+    description: "Additional metadata about the scoring"
+    properties:
+      input_hash:
+        type: string
+        description: "Hash of input for verification"
+      execution_time_ms:
+        type: number
+        description: "Execution time in milliseconds"
+      scorer_version:
+        type: string
+        description: "Version of the scoring engine"
+      dimensions_evaluated:
+        type: integer
+        description: "Number of dimensions evaluated"
+      frameworks_referenced:
+        type: integer
+        description: "Number of frameworks referenced"
+
+examples:
+  - schema_version: "1.0.0"
+    timestamp: "2026-06-23T12:00:00Z"
+    cluster_id: "legal-compliance"
+    component_id: "shared-scoring-engine"
+    framework:
+      name: "ISO/IEC 27037"
+      version: "2012"
+    overall_score: 82.5
+    score_band: "good"
+    confidence_level: "high"
+    dimensions:
+      - name: "Acquisition soundness"
+        score: 15
+        max_score: 15
+        weight: 0.15
+        percentage: 100
+        evidence:
+          - source: "ISO/IEC 27037 §6.2"
+            text: "Write-blocker used throughout acquisition process"
+        strengths:
+          - "Proper write-blocking implemented"
+        weaknesses: []

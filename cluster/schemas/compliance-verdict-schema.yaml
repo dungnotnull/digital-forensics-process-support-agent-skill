@@ -1,0 +1,201 @@
+# Compliance Verdict Schema
+# Standard schema for compliance check results across legal-compliance cluster
+
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "Compliance Verdict"
+description: "Standardized compliance check result for legal-compliance cluster skills"
+type: object
+required:
+  - schema_version
+  - timestamp
+  - cluster_id
+  - verdict
+  - jurisdiction
+  - disclaimers
+properties:
+  schema_version:
+    type: string
+    description: "Schema version identifier"
+    example: "1.0.0"
+
+  timestamp:
+    type: string
+    format: "date-time"
+    description: "ISO 8601 timestamp of compliance check"
+
+  cluster_id:
+    type: string
+    description: "Cluster identifier"
+    const: "legal-compliance"
+
+  component_id:
+    type: string
+    description: "Component that performed the check"
+    example: "shared-compliance-check"
+
+  verdict:
+    type: string
+    enum: ["pass", "conditional_pass", "fail"]
+    description: "Overall compliance verdict"
+
+  verdict_details:
+    type: object
+    description: "Detailed explanation of verdict"
+    properties:
+      reasoning:
+        type: string
+        description: "Explanation for the verdict"
+      confidence:
+        type: string
+        enum: ["high", "medium", "low"]
+        description: "Confidence level in the verdict"
+
+  jurisdiction:
+    type: object
+    description: "Jurisdiction information"
+    required:
+      - code
+      - name
+    properties:
+      code:
+        type: string
+        description: "Jurisdiction code (e.g., US-FEDERAL, EU-GDPR)"
+        example: "US-FEDERAL"
+      name:
+        type: string
+        description: "Full jurisdiction name"
+        example: "United States Federal"
+      notes:
+        type: array
+        items:
+          type: string
+        description: "Additional jurisdiction-specific notes"
+
+  domain:
+    type: string
+    description: "Domain area (e.g., digital forensics, data privacy)"
+    example: "digital forensics"
+
+  disclaimers:
+    type: array
+    description: "Required disclaimers to attach to output"
+    items:
+      type: object
+      required:
+        - type
+        - text
+      properties:
+        type:
+          type: string
+          enum: ["mandatory", "recommended", "jurisdiction_specific"]
+          description: "Disclaimer type"
+        text:
+          type: string
+          description: "Disclaimer text content"
+        location:
+          type: string
+          enum: ["header", "footer", "inline", "appendix"]
+          description: "Where to place the disclaimer"
+
+  flagged_items:
+    type: array
+    description: "Items requiring modification or removal"
+    items:
+      type: object
+      required:
+        - id
+        - severity
+        - action
+      properties:
+        id:
+          type: string
+          description: "Unique identifier for the flagged item"
+        text:
+          type: string
+          description: "Problematic text or claim"
+        location:
+          type: string
+          description: "Location in the document (section, paragraph, etc.)"
+        severity:
+          type: string
+          enum: ["critical", "high", "medium", "low"]
+          description: "Severity level of the issue"
+        action:
+          type: string
+          enum: ["remove", "soften", "qualify", "replace"]
+          description: "Required action"
+        reason:
+          type: string
+          description: "Explanation of why this item is flagged"
+        suggestion:
+          type: string
+          description: "Suggested replacement or modification"
+        reference:
+          type: string
+          description: "Legal or regulatory reference supporting the flag"
+
+  recommendations:
+    type: array
+    description: "Actionable recommendations for improving compliance"
+    items:
+      type: object
+      required:
+        - recommendation
+        - priority
+      properties:
+        recommendation:
+          type: string
+          description: "Specific recommendation text"
+        priority:
+          type: string
+          enum: ["critical", "high", "medium", "low"]
+          description: "Priority level"
+        effort:
+          type: string
+          enum: ["low", "medium", "high"]
+          description: "Estimated effort to implement"
+        category:
+          type: string
+          enum: ["unauthorized_practice", "missing_disclaimer", "overclaim", "jurisdiction_issue"]
+          description: "Category of the recommendation"
+
+  metadata:
+    type: object
+    description: "Additional metadata about the compliance check"
+    properties:
+      input_hash:
+        type: string
+        description: "Hash of input for verification"
+      execution_time_ms:
+        type: number
+        description: "Execution time in milliseconds"
+      checker_version:
+        type: string
+        description: "Version of the compliance checker"
+      frameworks_consulted:
+        type: array
+        items:
+          type: string
+        description: "Legal frameworks or standards consulted"
+
+examples:
+  - schema_version: "1.0.0"
+    timestamp: "2026-06-23T12:00:00Z"
+    cluster_id: "legal-compliance"
+    component_id: "shared-compliance-check"
+    verdict: "pass"
+    jurisdiction:
+      code: "US-FEDERAL"
+      name: "United States Federal"
+    domain: "digital forensics"
+    disclaimers:
+      - type: "mandatory"
+        text: "This assessment is for informational purposes only and not a substitute for licensed professional legal advice."
+        location: "footer"
+    flagged_items: []
+    recommendations: []
+    metadata:
+      execution_time_ms: 150
+      frameworks_consulted:
+        - "Daubert Standard"
+        - "Frye Standard"

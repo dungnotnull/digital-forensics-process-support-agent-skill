@@ -1,0 +1,24 @@
+# Development dependencies for Digital Forensics Process Support skill
+# Includes production dependencies
+
+-r requirements.txt
+
+# Development tools
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.5.0
+isort>=5.12.0
+
+# Testing enhancements
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.0
+coverage[toml]>=7.3.0
+
+# Documentation
+sphinx>=7.1.0
+sphinx-rtd-theme>=1.3.0
+
+# Security scanning
+bandit>=1.7.0
+safety>=2.3.0
